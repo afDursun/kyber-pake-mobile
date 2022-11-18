@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "PQCLibary"
 include ':app'
+include ':KyberPake'

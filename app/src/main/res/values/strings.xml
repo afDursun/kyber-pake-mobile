@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">PQCLibary</string>
-    <string name="algorithmName">saber</string>
+    <string name="app_name">Kyber.PAKE</string>
 </resources>
