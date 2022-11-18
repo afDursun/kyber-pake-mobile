@@ -14,7 +14,7 @@ allprojects {
 Step 2. Add the dependency
 ```java
 dependencies {
-   implementation 'com.github.afDursun:PQC-Library-AndroidJava:Tag'
+   implementation 'com.github.afDursun:Kyber.PAKE-Mobile:1.0.1'
 }
  ```
  
