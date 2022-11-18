@@ -1,30 +1,42 @@
-# PQCLibary-AndroidJava
+# KyberPAKE-Mobile
 
-NIST Standartlaştırma sürecindeki kafes-tabanlı SABER, CRYSTAL-KYBER ve NTRU algoritmaları ile oluşturulmuştur. Android-Java ortamında test aşamaları yapılmıştır.
-
-
-Kütüphanenin Kullanımı:
+#### Installation
+Step 1. Add it in your root build.gradle at the end of repositories:
 ```java
-PQCLibary pqcLibary = new PQCLibary("Algoritma_Etiketi");  // Anahtar Üretimi
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
  ```
  
- PQC-Library içerisinde kullanılabilecek etiketler aşağıda listelenmiştir.
- | Algoritma | PQC-Library Etiketi |
-| --- | --- |
-| LightSaber | Saber_Light |
-| Saber | Saber |
-| FireSaber | Saber_Fire |
-| Kyber512 | Kyber_512 |
-| Kyber768 | Kyber_768|
-| ntruhps2048509 | NTRU_509 |
-| ntruhps2048677 | NTRU_677 |
-| ntruhps4096821 | NTRU_821 |
-| ntruhrss701 | NTRU_701 |
-
-Örnek Kullanım:
+Step 2. Add the dependency
 ```java
-PQCLibary pqcLibary = new PQCLibary("Kyber_512");  // Anahtar Üretimi
-EncapsulationModel enc = pqcLibary.Encapsulation(pqcLibary.pk); //Paketleme
-byte[] sharedSecretKey = pqcLibary.Decapsulation(enc.getCipherText(),pqcLibary.sk); // Paket Çözme
+dependencies {
+	  implementation 'com.github.afDursun:PQC-Library-AndroidJava:Tag'
+	}
  ```
-Bu çalısma 121R006 proje numarasıyla TUBITAK tarafından desteklenmektedir.
+ 
+
+#### Example
+```java
+/* Pake C0 */
+PakeC0 c0 = KyberPake.pake_c0( cid, sid, pw);
+
+/* Pake S0 */
+PakeS0 s0 = KyberPake.pake_s0( c0.getSend(), c0.getGamma(), sid );
+
+/* Pake C1 */
+PakeC1 c1 = KyberPake.pake_c1( s0.getSend(), c0.getSk(), c0.getState_1() );
+
+/* Pake S1 */
+byte[] sharedeSecretKey_s1 =  KyberPake.pake_s1( c1.getK_3_c(), s0.getState());
+
+/* Output SessionKey */
+Log.d("KyberPAKE-C1.SessionKey", hex( c1.getSharedSecretKey() ));
+Log.d("KyberPAKE-S1.SessionKey", hex( sharedeSecretKey_s1 ));
+ ```
+ 
+## Acknowledgment
+- This research was partially supported by TUBITAK under Grant No. 121R006
